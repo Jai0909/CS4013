@@ -22,7 +22,7 @@ public class HotelMenu {
       if (command == 4) {
         System.out.println("WORKS");
       }
-      if (command == 5) {
+      if (command == 0) {
         break;
       }
   }
