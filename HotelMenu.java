@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class HotelMenu {
+  private Sccaner input;
   public HotelMenu() {
   }
   public void run() {
