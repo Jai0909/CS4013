@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -32,14 +31,6 @@ public class FileWriter {
 
         roomTypesArray = Arrays.toString(roomType);
         numOfPeopleArray = Arrays.toString(numOfPeople);
-        /*
-        for (int i = 0; i < roomType.length; i++) {
-            roomTypesArray += roomType[i] + " ";
-        }
-        for (int i = 0; i < numOfPeople.length; i++) {
-            numOfPeopleArray += numOfPeople[i] + " ";
-        }
-         */
 
         PrintWriter writer = new PrintWriter(new java.io.FileWriter(toBeWritten, true));
         writer.append(reservationNum + ", " + reservationName + ", " + reservationType + ", " + checkIn + ", " + checkOut + ", " +
