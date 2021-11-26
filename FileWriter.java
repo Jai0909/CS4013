@@ -4,7 +4,9 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class FileWriter {
-    File toBeWritten = new File("src/reservations.csv");
+    File reservationWriterFile = new File("src/reservations.csv");
+    File paymentWriter = new File("src/payment.csv");
+
     private int reservationNum;
     private String reservationName;
     private String reservationType;
@@ -13,12 +15,14 @@ public class FileWriter {
     private int numberOfRooms;
     private String[] roomType;
     private int[] numOfPeople;
-    private double totalCost;
     String roomTypesArray;
     String numOfPeopleArray;
 
+    private String isItPaid;
+    private double totalCost;
+
     public FileWriter(int reservationNum, String name, String type, String checkIn, String checkOut, int numberOfRooms, String[] roomType,
-                      int[] numOfPeople, double totalCost) throws IOException {
+                      int[] numOfPeople) throws IOException {
         this.reservationNum = reservationNum;
         reservationName = name;
         reservationType = type;
@@ -27,15 +31,35 @@ public class FileWriter {
         this.numberOfRooms = numberOfRooms;
         this.roomType = roomType;
         this.numOfPeople = numOfPeople;
-        this.totalCost = totalCost;
 
         roomTypesArray = Arrays.toString(roomType);
         numOfPeopleArray = Arrays.toString(numOfPeople);
 
-        PrintWriter writer = new PrintWriter(new java.io.FileWriter(toBeWritten, true));
-        writer.append(reservationNum + ", " + reservationName + ", " + reservationType + ", " + checkIn + ", " + checkOut + ", " +
-                numberOfRooms + ", " + roomTypesArray + ", " + numOfPeopleArray + ", " + totalCost + "\n");
+        roomTypesArray = roomTypesArray.replace("[", "");
+        roomTypesArray = roomTypesArray.replace("]", "");
+        numOfPeopleArray = numOfPeopleArray.replace("[", "");
+        numOfPeopleArray = numOfPeopleArray.replace("]", "");
 
-        writer.close();
+        if (!reservationWriterFile.exists()) {
+            reservationWriterFile.createNewFile();
+        }
+
+        PrintWriter reservationWriter = new PrintWriter(new java.io.FileWriter(reservationWriterFile, true));
+        reservationWriter.append(reservationNum + "," + reservationName + "," + reservationType + "," + checkIn + "," + checkOut + "," +
+                numberOfRooms + "," + roomTypesArray + "," + numOfPeopleArray + "\n");
+        reservationWriter.close();
+    }
+
+    public FileWriter(String isItPaid, double totalCost) throws IOException {
+        this.isItPaid = isItPaid;
+        this.totalCost = totalCost;
+
+        if (!paymentWriter.exists()) {
+            paymentWriter.createNewFile();
+        }
+
+        PrintWriter costWriter = new PrintWriter(new java.io.FileWriter(paymentWriter, true));
+        costWriter.append(isItPaid + "," + totalCost + "\n");
+        costWriter.close();
     }
 }
