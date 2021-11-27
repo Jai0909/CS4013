@@ -18,10 +18,8 @@ public class FileWriter {
     private String checkIn;
     private String checkOut;
     private int numberOfRooms;
-    private String[] roomType;
-    private int[] numOfPeople;
-    String roomTypesArray;
-    String numOfPeopleArray;
+    private String roomType;
+
 
     private String isItPaid;
     private double totalCost;
@@ -36,11 +34,9 @@ public class FileWriter {
      * @param checkOut
      * @param numberOfRooms
      * @param roomType
-     * @param numOfPeople
      * @throws IOException
      */
-    public FileWriter(int reservationNum, String name, String type, String checkIn, String checkOut, int numberOfRooms, String[] roomType,
-                      int[] numOfPeople) throws IOException {
+    public FileWriter(int reservationNum, String name, String type, String checkIn, String checkOut, int numberOfRooms, String roomType) throws IOException {
         this.reservationNum = reservationNum;
         reservationName = name;
         reservationType = type;
@@ -48,17 +44,10 @@ public class FileWriter {
         this.checkOut = checkOut;
         this.numberOfRooms = numberOfRooms;
         this.roomType = roomType;
-        this.numOfPeople = numOfPeople;
 
         //converts the arrays to strings
-        roomTypesArray = Arrays.toString(roomType);
-        numOfPeopleArray = Arrays.toString(numOfPeople);
 
-        //Replaces the [ and ] in the arrays to a blank string
-        roomTypesArray = roomTypesArray.replace("[", "");
-        roomTypesArray = roomTypesArray.replace("]", "");
-        numOfPeopleArray = numOfPeopleArray.replace("[", "");
-        numOfPeopleArray = numOfPeopleArray.replace("]", "");
+
 
         //creates a new csv if it doesn't already exist
         if (!reservationWriterFile.exists()) {
@@ -68,7 +57,7 @@ public class FileWriter {
         //Prints the data to the csv file
         PrintWriter reservationWriter = new PrintWriter(new java.io.FileWriter(reservationWriterFile, true));
         reservationWriter.append(reservationNum + "," + reservationName + "," + reservationType + "," + checkIn + "," + checkOut + "," +
-                numberOfRooms + "," + roomTypesArray + "," + numOfPeopleArray + "\n");
+                numberOfRooms + "," + roomType + "\n");
         reservationWriter.close();
     }
 
@@ -91,5 +80,10 @@ public class FileWriter {
         PrintWriter costWriter = new PrintWriter(new java.io.FileWriter(paymentWriter, true));
         costWriter.append(isItPaid + "," + totalCost + "\n");
         costWriter.close();
+    }
+
+    public static void removeReservation(int number){
+        System.out.println("Removes item number: " + number);
+        //removes the line with the number matching the reservation number in reservation.csv
     }
 }
