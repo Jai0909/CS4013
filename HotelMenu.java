@@ -4,7 +4,7 @@ public class HotelMenu {
     public HotelMenu() {
     }
     public void run() {
-        String str = "";
+        String resName = "";
         while(true) {
             System.out.println("1. Add Reservation");
             System.out.println("2. Check-In");
@@ -12,9 +12,10 @@ public class HotelMenu {
             System.out.println("4. Display");
             System.out.println("0. Quit");
             int command = input.nextInt();
+            input.nextLine();
             if (command == 1) {
                 System.out.println("Enter Name:\n");
-                String name = input.nextLine();
+                resName = input.nextLine();
                 System.out.println("Enter Type (S or AP):\n");
                 String type = input.nextLine();
                 System.out.println("Enter Intended Check-in date (format dd-mm-yyyy):\n");
@@ -23,17 +24,18 @@ public class HotelMenu {
                 String checkOut = input.nextLine();
                 System.out.println("Enter the number of rooms you wish to book:\n");
                 int numOfRoom = input.nextInt();
-                RequestHandler.newReservation(name, type, checkIn, checkOut, numOfRoom);
-                System.out.println("WORKS");
+                RequestHandler.newReservation(resName, type, checkIn, checkOut, numOfRoom);
             }
             if (command == 2) {
                 System.out.println("WORKS");
             }
             if (command == 3) {
-                System.out.println("WORKS");
+                System.out.println("Enter the Reservation number of the Reservation you want to cancellation:\n");
+                int number = input.nextInt();
+                FileWriter.removeReservation(number);
             }
             if (command == 4) {
-                System.out.println("WORKS");
+                RequestHandler.displayReservations();
             }
             if (command == 0) {
                 break;
