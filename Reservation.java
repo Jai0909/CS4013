@@ -3,7 +3,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Reservation {
-    private int reservationNum = 0;
+    private int reservationNum;
     private String reservationName;
     private String reservationType;
     private String checkIn;
@@ -16,7 +16,7 @@ public class Reservation {
 
 
     public Reservation(String name, String type, String checkIn, String checkOut, int numberOfRooms){
-        this.reservationNum = reservationNum+1;
+        this.reservationNum = FileReader.getListSize()+1;
         this.reservationName = name;
         this.reservationType = type;
         this.checkIn = checkIn;
@@ -102,5 +102,37 @@ public class Reservation {
         }
         System.out.println(result);
         return result;
+    }
+
+    public String getReservationName() {
+        return reservationName;
+    }
+
+    public int getReservationNum() {
+        return reservationNum;
+    }
+
+    public String getCheckIn() {
+        return checkIn;
+    }
+
+    public String getCheckOut() {
+        return checkOut;
+    }
+
+    public String getRoomType(int i) {
+        return roomType[i];
+    }
+
+    public int getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public int[] getNumOfPeople() {
+        return numOfPeople;
+    }
+
+    public String getReservationType() {
+        return reservationType;
     }
 }
