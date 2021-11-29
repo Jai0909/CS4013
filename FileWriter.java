@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class FileWriter {
     //Reservation csv writer data fields.
-    private File reservationWriterFile = new File("src/reservations.csv");
+    private File reservationWriterFile = new File("CsvFiles/reservations.csv");
     private int reservationNum;
     private String reservationName;
     private String reservationType;
@@ -21,7 +21,7 @@ public class FileWriter {
     private String roomType;
 
     //Payment csv writer data fields.
-    private File paymentWriter = new File("src/payment.csv");
+    private File paymentWriter = new File("CsvFiles/payment.csv");
     private int resNum;
     private String checkInDate;
     private String checkOutDate;
@@ -117,7 +117,7 @@ public class FileWriter {
      * @param number
      */
     public static void removeReservation(int number) {
-        File file = new File("src/reservations.csv");
+        File file = new File("CsvFiles/reservations.csv");
         int reservationInt;
         String reservationName;
         String reservationType;
@@ -185,7 +185,7 @@ public class FileWriter {
      * @param number
      */
     public static void removePayment(int number) {
-        File file = new File("src/payment.csv");
+        File file = new File("CsvFiles/payment.csv");
         int resNum;
         String checkInDate;
         String checkOutDate;
