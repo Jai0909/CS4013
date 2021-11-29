@@ -13,7 +13,7 @@ public class DateChecker {
      * This static method returns the difference in days between two days as an integer
      * @param start_date
      * @param end_date
-     * @return
+     * @return the difference between 2 days 
      */
     static int findDifference(String start_date, String end_date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -39,7 +39,7 @@ public class DateChecker {
     /**
      * This method returns the number of the week as an integer with 3 added on so it can be easily used to access days in hotels.csv
      * @param date
-     * @return
+     * @return returns day of the week as an integer from Sun - Sat and adds 3
      */
     public static int getDayNumber(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -56,7 +56,7 @@ public class DateChecker {
 
     /**
      * This method returns todays date as a String in the dd-mm-yyyy format
-     * @return
+     * @return todays date
      */
     public static String getLocalDate() {
         String date = LocalDate.now().toString();
@@ -72,7 +72,7 @@ public class DateChecker {
      * @param roomType
      * @param checkin
      * @param checkout
-     * @return
+     * @return true if a room is available for reservation, else false
      */
     public static boolean checkVacancy(String roomType, String checkin, String checkout) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
