@@ -35,7 +35,23 @@ public class DateChecker {
         }
         return -1;
     }
-
+    
+    /**
+     *@param date
+     *@return 
+     */
+    public static boolean checkformat(String date){
+        try{
+	    String[] dateparts=date.split("-");
+            Integer.parseInt(dateparts[0]);
+	    Integer.parseInt(dateparts[1]);
+            Integer.parseInt(dateparts[2]);
+            return true;
+	   }
+       catch(Exception e){
+	   return false;
+	   }
+	}     
     /**
      * This method returns the number of the week as an integer with 3 added on so it can be easily used to access days in hotels.csv
      * @param date
