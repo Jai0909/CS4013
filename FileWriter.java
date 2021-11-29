@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * @author Cael O'Flaherty
- * This class writes data to payment.csv and reservations.csv. It also removes a reservation from a csv file.
+ * This class writes data to payment.csv and reservations.csv. It also removes a reservation or a payment from their respective csv file.
  */
 public class FileWriter {
     //Reservation csv writer data fields.
@@ -22,7 +22,10 @@ public class FileWriter {
 
     //Payment csv writer data fields.
     private File paymentWriter = new File("src/payment.csv");
-    private String isItPaid;
+    private int resNum;
+    private String checkInDate;
+    private String checkOutDate;
+    private String roomTypeForHotel;
     private double totalCost;
 
     /**
@@ -35,10 +38,9 @@ public class FileWriter {
      * @param checkOut
      * @param numberOfRooms
      * @param roomType
-     * @throws IOException
      */
     public FileWriter(int reservationNum, String reservationName, String reservationType, String checkIn, String checkOut, int numberOfRooms,
-                      String roomType) throws IOException {
+                      String roomType) {
         this.reservationNum = reservationNum;
         this.reservationName = reservationName;
         this.reservationType = reservationType;
@@ -49,11 +51,22 @@ public class FileWriter {
 
         //creates a new csv file if one doesn't already exist.
         if (!reservationWriterFile.exists()) {
-            reservationWriterFile.createNewFile();
+            try {
+                reservationWriterFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Unable to access file \"reservations.csv\"");
+            }
         }
 
         //Prints the data to the reservations.csv file.
-        PrintWriter reservationWriter = new PrintWriter(new java.io.FileWriter(reservationWriterFile, true));
+        PrintWriter reservationWriter = null;
+        try {
+            reservationWriter = new PrintWriter(new java.io.FileWriter(reservationWriterFile, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to write to reservations.csv. Make sure file is in place and available for use");
+        }
         reservationWriter.append(reservationNum + "," + reservationName + "," + reservationType + "," + checkIn + "," + checkOut + "," +
                 numberOfRooms + "," + roomType + "\n");
         reservationWriter.close();
@@ -62,24 +75,41 @@ public class FileWriter {
     /**
      * This constructor makes a FileWriter object that writes data to payment.csv.
      *
-     * @param isItPaid
+     * @param resNum
+     * @param checkInDate
+     * @param checkOutDate
+     * @param roomTypeForHotel
      * @param totalCost
-     * @throws IOException
      */
-    public FileWriter(String isItPaid, double totalCost) throws IOException {
-        this.isItPaid = isItPaid;
+    public FileWriter(int resNum, String checkInDate, String checkOutDate, String roomTypeForHotel, double totalCost) {
+        this.resNum = resNum;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.roomTypeForHotel = roomTypeForHotel;
         this.totalCost = totalCost;
 
         //creates a new csv if it doesn't already exist.
         if (!paymentWriter.exists()) {
-            paymentWriter.createNewFile();
+            try {
+                paymentWriter.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Unable to access file \"payment.csv\"");
+            }
         }
 
         //Prints the data to the csv file.
-        PrintWriter costWriter = new PrintWriter(new java.io.FileWriter(paymentWriter, true));
-        costWriter.append(isItPaid + "," + totalCost + "\n");
+        PrintWriter costWriter = null;
+        try {
+            costWriter = new PrintWriter(new java.io.FileWriter(paymentWriter, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to write to payment.csv. Make sure file is in place and available for use");
+        }
+        costWriter.append(resNum + "," + checkInDate + "," + checkOutDate + "," + roomTypeForHotel + "," + totalCost + "\n");
         costWriter.close();
     }
+
 
     /**
      * this method removes a specified reservation from the reservations.csv file.
@@ -112,6 +142,7 @@ public class FileWriter {
                 checkOut = tokens[4];
                 numberOfRooms = tokens[5];
                 roomType = tokens[6];
+
                 TempRes store = new TempRes(reservationInt, reservationName, reservationType, checkIn, checkOut, numberOfRooms, roomType);
                 tempStore.add(store);
             }
@@ -120,7 +151,7 @@ public class FileWriter {
             for (int i = 0; i < tempStore.size(); i++) {
                 if (tempStore.get(i).getReservationNum() == number) {
                     tempStore.remove(i);
-                    System.out.println("Removed item number: " + number);
+                    System.out.println("Removed reservation number: " + number);
                 }
             }
 
@@ -135,7 +166,7 @@ public class FileWriter {
             reservationWriter.write(tempStoreString);
             reservationWriter.close();
 
-            //catch for scanner.
+            //Catch for scanner.
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("reservations.csv not found");
@@ -143,7 +174,73 @@ public class FileWriter {
             //Catch for FileWriter.
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Unable to write to reservations.csv. Make sure file is in place and available");
+            System.out.println("Unable to write to reservations.csv. Make sure file is in place and available for use");
+        }
+    }
+
+
+    /**
+     * this method removes a specified payment from the payment.csv file.
+     *
+     * @param number
+     */
+    public static void removePayment(int number) {
+        File file = new File("src/payment.csv");
+        int resNum;
+        String checkInDate;
+        String checkOutDate;
+        String roomTypeForHotel;
+        double totalCost;
+        String line;
+        ArrayList<TempPay> tempPayStore = new ArrayList<>();
+
+        try {
+            //read in the data from the payment file, creates a TempPay object and stores data in an arraylist of type TempPay.
+            Scanner input = new Scanner(file);
+            while (input.hasNextLine()) {
+                line = input.nextLine();
+                String[] tokens = line.split(",");
+                String resNumString = tokens[0];
+                resNum = Integer.parseInt(resNumString);
+                checkInDate = tokens[1];
+                checkOutDate = tokens[2];
+                roomTypeForHotel = tokens[3];
+                String totalCostString = tokens[4];
+                totalCost = Double.parseDouble(totalCostString);
+
+                TempPay store = new TempPay(resNum, checkInDate, checkOutDate, roomTypeForHotel, totalCost);
+                tempPayStore.add(store);
+            }
+
+            //Iterates the array list. if the reservation number is equal to the reservation number of the payment you want to remove,
+            //remove it from the arraylist.
+            for (int i = 0; i < tempPayStore.size(); i++) {
+                if (tempPayStore.get(i).getReservationNum() == number) {
+                    tempPayStore.remove(i);
+                    System.out.println("Removed payment for reservation number: " + number);
+                }
+            }
+
+            //Formats the arraylist and stores it in a string.
+            String tempPayStoreString = "";
+            for (int i = 0; i < tempPayStore.size(); i++) {
+                tempPayStoreString += (tempPayStore.get(i).toString());
+            }
+
+            //print the stored payment from the arraylist back to the csv file. This overwrites the original payment.csv file.
+            PrintWriter reservationWriter = new PrintWriter(new java.io.FileWriter(file, false));
+            reservationWriter.write(tempPayStoreString);
+            reservationWriter.close();
+
+            //Catch for scanner.
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("payment.csv not found");
+
+            //Catch for FileWriter.
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Unable to write to payment.csv. Make sure file is in place and available for use");
         }
     }
 }
