@@ -26,12 +26,31 @@ public class HotelMenu {
             if (command == 1) {
                 System.out.println("Enter Name:\n");
                 resName = input.nextLine();
-                System.out.println("Enter Type (S or AP):\n");
-                String type = input.nextLine();
-                System.out.println("Enter Intended Check-in date (format dd-mm-yyyy):\n");
-                String checkIn = input.nextLine();
-                System.out.println("Enter Intended Check-out date (format dd-mm-yyyy):\n");
-                String checkOut = input.nextLine();
+		String type;
+		while(true){
+			System.out.println("Enter Type (S or AP):\n");
+                	type = input.nextLine();
+			if(type.equals("S")||type.equals("AP")){
+				break;
+			}
+			else{
+				System.out.println("Invalid Input\n");
+			}
+		}
+		String checkIn;
+		String checkOut;
+		while(true){
+			System.out.println("Enter Intended Check-in date (format dd-mm-yyyy):\n");
+                	checkIn = input.nextLine();
+                	System.out.println("Enter Intended Check-out date (format dd-mm-yyyy):\n");
+                	checkOut = input.nextLine();
+			if(DateChecker.checkformat(checkIn) && DateChecker.checkformat(checkOut)){
+				break;
+			}
+			else{
+				System.out.println("Invalid Input\n");
+			}
+		}
                 System.out.println("Enter the number of rooms you wish to book:\n");
                 int numOfRoom = input.nextInt();
                 RequestHandler.newReservation(resName, type, checkIn, checkOut, numOfRoom);
