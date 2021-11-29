@@ -1,7 +1,9 @@
-import javax.lang.model.util.SimpleElementVisitor14;
-import java.io.File;
 import java.util.Scanner;
 
+/**
+ * @author Jai
+ * Class makes reservations
+ */
 public class Reservation {
     private int reservationNum;
     private String reservationName;
@@ -12,11 +14,20 @@ public class Reservation {
     private String[] roomType;
     private int[] numOfPeople;
     private double totalCost;
+    private boolean available = true;
 
 
-
+    /**
+     * Constructor for reservations
+     * @param name
+     * @param type
+     * @param checkIn
+     * @param checkOut
+     * @param numberOfRooms
+     */
     public Reservation(String name, String type, String checkIn, String checkOut, int numberOfRooms){
-        this.reservationNum = FileReader.getListSize()+1;
+
+        this.reservationNum = FileReader.checkLastNumber();
         this.reservationName = name;
         this.reservationType = type;
         this.checkIn = checkIn;
@@ -26,6 +37,9 @@ public class Reservation {
         this.numOfPeople = new int[numberOfRooms];
     }
 
+    /**
+     * This method uses gets the user to pick out all the rooms to be reserved
+     */
     public void getRoomTypeList(){
         Scanner scanner = new Scanner(System.in);
         String option = "";
@@ -44,13 +58,34 @@ public class Reservation {
                     option = scanner.nextLine();
                 }
                 if (option.equals("a")) {
-                    this.roomType[i] = "Deluxe Double";
+                    if(DateChecker.checkVacancy("Deluxe Double", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Deluxe Double";
+                        System.out.println(DateChecker.checkVacancy("Deluxe Double", this.checkIn, this.checkOut));
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("b")) {
-                    this.roomType[i] = "Deluxe Twin";
+                    if(DateChecker.checkVacancy("Deluxe Twin", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Deluxe Twin";
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("c")) {
-                    this.roomType[i] = "Deluxe Single";
+                    if(DateChecker.checkVacancy("Deluxe Single", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Deluxe Single";
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("d")) {
-                    this.roomType[i] = "Deluxe Family";
+                    if(DateChecker.checkVacancy("Deluxe Family", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Deluxe Family";
+                        } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 }
             } else if (outcome.equals("b")) {
                 System.out.println("Choose Room\na) Double\nb) Twin\nc) Single");
@@ -60,11 +95,23 @@ public class Reservation {
                     option = scanner.nextLine();
                 }
                 if (option.equals("a")) {
-                    this.roomType[i] = "Executive Double";
+                    if(DateChecker.checkVacancy("Executive Double", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Executive Double";
+                    }
                 } else if (option.equals("b")) {
-                    this.roomType[i] = "Executive Twin";
+                    if(DateChecker.checkVacancy("Executive Twin", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Executive Twin";
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("c")) {
-                    this.roomType[i] = "Executive Single";
+                    if(DateChecker.checkVacancy("Executive Single", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Executive Single";
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 }
             } else if (outcome.equals("c")) {
                 System.out.println("Choose Room\na) Double\nb) Twin\nc) Single");
@@ -74,65 +121,134 @@ public class Reservation {
                     option = scanner.nextLine();
                 }
                 if (option.equals("a")) {
-                    this.roomType[i] = "Classic Double";
+                    if(DateChecker.checkVacancy("Classic Double", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Classic Double";
+                    }  else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("b")) {
-                    this.roomType[i] = "Classic Twin";
+                    if(DateChecker.checkVacancy("Classic Twin", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Classic Twin";
+                    }  else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 } else if (option.equals("c")) {
-                    this.roomType[i] = "Classic Single";
+                    if(DateChecker.checkVacancy("Classic Single", this.checkIn, this.checkOut)) {
+                        this.roomType[i] = "Classic Single";
+                    } else {
+                        System.out.println("Maximum number of rooms exceeded");
+                        setAvailablility(false);
+                    }
                 }
             }
         }
     }
 
+    /**
+     * sets number of people per room
+     */
     public void addOccupancy(){
         for(int i = 0; i < this.numberOfRooms; i++){
             this.numOfPeople[i] = FileReader.getMaxOccupancy(roomType[i]);
-            System.out.println("number of people " + numOfPeople[i]);
         }
     }
 
+    /**
+     * returns total cost for a reservation. Applies discount if reservation is an "Advanced purchased"
+     * @return
+     */
     public double getTotalCost(){
         double result = 0;
         for(int i = 0; i < numberOfRooms; i++){
             result = result + FileReader.getPrice(checkIn, checkOut, roomType[i]);
         }
         if(this.reservationType.equals("AP")){
-            System.out.println(result * 0.95);
             return result * 0.95;
         }
-        System.out.println(result);
         return result;
     }
 
+    /**
+     * returns reservation name
+     * @return
+     */
     public String getReservationName() {
         return reservationName;
     }
+
+    /**
+     * gets reservation number
+     * @return
+     */
 
     public int getReservationNum() {
         return reservationNum;
     }
 
+    /**
+     * gets check in date
+     * @return
+     */
     public String getCheckIn() {
         return checkIn;
     }
 
+    /**
+     * gets check out date
+     * @return
+     */
     public String getCheckOut() {
         return checkOut;
     }
 
+    /**
+     * gets room type
+     * @param i
+     * @return
+     */
     public String getRoomType(int i) {
         return roomType[i];
     }
 
+    /**
+     * gets number of rooms from reservation
+     * @return
+     */
     public int getNumberOfRooms() {
         return numberOfRooms;
     }
 
+    /**
+     * gets number of people list
+     * @return
+     */
     public int[] getNumOfPeople() {
         return numOfPeople;
     }
 
+    /**
+     * gets reservation type list but as a string
+     * @return
+     */
     public String getReservationType() {
         return reservationType;
+    }
+
+    /**
+     * sets avaibility variable
+     * @param available
+     */
+    public void setAvailablility(boolean available) {
+        this.available = available;
+    }
+
+    /**
+     * gets availability variable
+     * @return
+     */
+    public boolean getAvaiablility() {
+        return available;
     }
 }
