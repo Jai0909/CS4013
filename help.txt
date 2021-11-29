@@ -1,7 +1,6 @@
 The L4 Hotels Reservations system is a Character User Interface based system.
 The system's primary objectives include booking a room, checking room vacancy, etc.
-To compile the system you will first have to download the zip file from the GitHub repository given below.
-Next, you must unzip the file in your desired location.
+To compile the system you will first have to unzip the folder in your desired location.
 After you unzip the folder on your machine you must open Command line(Windows) or terminal(macOS or Linux)
 Now you must go to the directory where you have unzipped the code. For example, if we unzip the code on Desktop the command would be "cd Desktop/CS4013PROJECT-main"(works the same in both cmd and terminal).
 Once you are inside the directory perform the following command "javac *.java"(works for both cmd and terminal)
