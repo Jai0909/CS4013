@@ -1,7 +1,7 @@
 import java.util.Date;
 
 /**
- * @author Dennis Kolomiyets
+ * @author Rohan Arya
  * This class stores reservation rooms for use in checkVaccancy()
  */
 public class ExistingReservation {
