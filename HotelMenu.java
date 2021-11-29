@@ -56,13 +56,13 @@ public class HotelMenu {
                 String hotel = "";
                 int number = 0;
                 int analyticChoice = 0;
-                while(!(analyticChoice == 1) || !(analyticChoice == 1)){
+                while(analyticChoice != 1 && analyticChoice != 2){
                     System.out.println("Check the analytics for \n1) Income\n2) Occupancy");
                     analyticChoice = input.nextInt();
                 }
 
-                while (!(number >= 1) && !(number <= 3)) {
-                    System.out.println("Enter the hotel which you want to view:\n1) 5-Star\n2) 4-Star 3) 3-Star");
+                while (number != 1 && number != 2 && number != 3) {
+                    System.out.println("Enter the hotel which you want to view:\n1) 5-Star\n2) 4-Star\n3) 3-Star");
                     number = input.nextInt();
                 }
                 if(number == 1){
