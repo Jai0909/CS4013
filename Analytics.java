@@ -3,6 +3,10 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Cael O'Flaherty
+ * This class handles the analytics of a reservation system. You can get analytics for both income and occupancy per hotel.
+ */
 public class Analytics {
 
     /**
