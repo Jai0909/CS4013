@@ -73,7 +73,7 @@ public class Analytics {
     private static ArrayList<TempPay> dateChecker(String checkFromDate, String checkToDate, String hotel) {
         ArrayList<TempPay> payment = paymentReader();
         ArrayList<TempPay> withinDates = new ArrayList<>();
-        String resDatesFrom, resDatesTo, paramDatesFrom, paramDatesTo;
+        String resDatesFrom, resDatesTo, paramDatesFrom, paramDatesTo, tempHotel;
         int finalResDatesFrom, finalResDatesTo, finalParamDatesFrom, finalParamDatesTo, flag;
 
         //For loop that adds payment details to an arrayList if the dates of payment are within the correct zone.
@@ -95,10 +95,19 @@ public class Analytics {
             paramDatesTo = paramTokensTo[2] + paramTokensTo[1] + paramTokensTo[0];
             finalParamDatesTo = Integer.parseInt(paramDatesTo);
 
+            // if else statement that converts the room type to the correct format for dateChecker. eg. "Deluxe standard" becomes "deluxe"
+            if (payment.get(i).getRoomTypeForHotel().toLowerCase().contains("deluxe")) {
+                tempHotel = "deluxe";
+            } else if (payment.get(i).getRoomTypeForHotel().toLowerCase().contains("executive")) {
+                tempHotel = "executive";
+            } else {
+                tempHotel = "classic";
+            }
+
             //Compare the from value between payment date and parameter to and from date. If they are in range and if the correct
             //hotel type is chosen increment flag.
             if (finalResDatesFrom >= finalParamDatesFrom && finalResDatesFrom <= finalParamDatesTo &&
-                    payment.get(i).getRoomTypeForHotel().toLowerCase().equals(hotel.toLowerCase())) {
+                    tempHotel.equals(hotel.toLowerCase())) {
                 flag++;
             }
 
@@ -110,7 +119,7 @@ public class Analytics {
             //Compare the to value between payment date and parameter to and from date. If they are in range and if the correct
             //hotel type is chosen, increment flag.
             if (finalResDatesTo >= finalParamDatesFrom && finalResDatesTo <= finalParamDatesTo &&
-                    payment.get(i).getRoomTypeForHotel().toLowerCase().equals(hotel.toLowerCase())) {
+                    tempHotel.equals(hotel.toLowerCase())) {
                 flag++;
             }
 
