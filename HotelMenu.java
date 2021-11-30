@@ -16,6 +16,7 @@ public class HotelMenu {
      */
     public void run() {
         String resName = "";
+	//prints options for user
         while(true) {
             System.out.println("1. Add Reservation");
             System.out.println("2. Check-In");
@@ -26,6 +27,7 @@ public class HotelMenu {
             int command = input.nextInt();
             input.nextLine();
             if (command == 1) {
+		// adds reservation
                 System.out.println("Enter Name:\n");
                 resName = input.nextLine();
 		String type;
@@ -63,11 +65,14 @@ public class HotelMenu {
                 RequestHandler.newReservation(resName, type, checkIn, checkOut, numOfRoom);
             }
             if (command == 2) {
+		//attempts to check in
                 System.out.println(FileReader.checkIn());
             }
             if (command == 3) {
+		//attemps to cancel and remove a reservation
                 System.out.println("Enter the Reservation number of the Reservation you want to cancellation:\n");
                 int number = input.nextInt();
+		//checks if user is eligable for a refund
                 if(DateChecker.findDifference(DateChecker.getLocalDate(), FileReader.getCheckIn(number)) <= 2 || FileReader.getType(number).equals("AP") || FileReader.getType(number).equals("ap")){
                     System.out.println("\n\nNot Applicable for refund as it is less than 2 days til reservation date or reservation was an advanced purchase\n\n");
                 } else {
@@ -76,8 +81,10 @@ public class HotelMenu {
                 FileWriter.removeReservation(number);
             }
             if (command == 4) {
+		//displays reservatiom
                 RequestHandler.displayReservations();
             }
+	    //starts chain for checking analytics for either income or occupancy
             if (command == 5) {
                 String hotel = "";
                 int number = 0;
