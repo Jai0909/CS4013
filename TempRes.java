@@ -57,7 +57,7 @@ public class TempRes {
     
     /**
     *This method is used by the checkVaccancy method in Date Checker to create a HashMap to store information regarding reservations in memory for easier access later.
-    * @param String path
+    * @param path String, file path to be loaded in
     * @return reservation loaded into memory
     */
     public static Map<String, List<TempRes>> loadCSV(String path) {
