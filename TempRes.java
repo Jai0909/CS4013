@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * @author Cael O'Flaherty
+ * @author Dennis Kolomiyets
  * This Class creates an object for the reservations to temporarily be stored in.
  */
 public class TempRes {
@@ -53,18 +54,26 @@ public class TempRes {
                 numberOfRooms + "," + roomType + "\n");
     }
 
+    
+    /**
+    *This method is used by the checkVaccancy method in Date Checker to create a HashMap to store information regarding reservations in memory for easier access later.
+    * @param String path
+    * @return reservation loaded into memory
     public static Map<String, List<TempRes>> loadCSV(String path) {
         Map<String, List<TempRes>> result = null;
         BufferedReader br = null;
         try {
+            // creates new buffered reader
             br = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
             String line;
             result = new HashMap<>();
+            //reads lines and stores reservation number and number of rooms
             while((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 int resNum = Integer.parseInt(fields[0]);
                 int numOfRooms = Integer.parseInt(fields[5]);
-
+                
+                //tokenizes the room types field with the delimeter of "/"
                 StringTokenizer st = new StringTokenizer(fields[6], "/");
                 while(st.hasMoreTokens()) {
                     String reservationType = st.nextToken();
