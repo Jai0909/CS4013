@@ -44,9 +44,14 @@ public class HotelMenu {
                 	checkIn = input.nextLine();
                 	System.out.println("Enter Intended Check-out date (format dd-mm-yyyy):\n");
                 	checkOut = input.nextLine();
-			if(DateChecker.checkformat(checkIn) && DateChecker.checkformat(checkOut)){
-				break;
+			if(DateChecker.checkformat(checkIn,checkOut)){
+        if(DateChecker.findDifference(checkIn,checkOut)>0){
+          break;
+        }
+        else{
+  				System.out.println("Invalid Input\n");
 			}
+    }
 			else{
 				System.out.println("Invalid Input\n");
 			}
