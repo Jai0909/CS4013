@@ -4,6 +4,7 @@
  */
 public class Root {
     public static void main(String [] args) {
+        //runs hotel menu
         HotelMenu menu = new HotelMenu();
         menu.run();
     }
