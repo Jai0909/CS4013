@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 /**
  * @author Jai
+ * @author Dennis Kolomiyets
  * Class makes reservations
  */
 public class Reservation {
