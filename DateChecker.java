@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class DateChecker {
     /**
      * This static method returns the difference in days between two days as an integer
-     * @param start_date
-     * @param end_date
+     * @param start_date String, start date for finding difference
+     * @param end_date String, end date for finding difference
      * @return the difference between 2 days
      */
     public static int findDifference(String start_date, String end_date) {
@@ -39,7 +39,7 @@ public class DateChecker {
 
     /**
     * This method checks if an year is a leap year or not
-    * @param year
+    * @param year int, inputs year to test
     * @return returns true if year is leap year
     */
     public static boolean isLeap(int year){
@@ -48,8 +48,8 @@ public class DateChecker {
     }
     /**
      * This method checks whether the given date is in the correct format or not
-     * @param date1
-     * @param date2
+     * @param date1 String, start date
+     * @param date2 String, end date
      * @return returns true if the given date is in the correct format
      */
     public static boolean checkformat(String date1, String date2){
@@ -121,7 +121,7 @@ public class DateChecker {
 
     /**
      * This method returns the number of the week as an integer with 3 added on so it can be easily used to access days in hotels.csv
-     * @param date
+     * @param date String, date in dd-mm-yyyy
      * @return returns day of the week as an integer from Sun - Sat and adds 3
      */
     public static int getDayNumber(String date) {
@@ -154,9 +154,9 @@ public class DateChecker {
      * It increments each day locally til its gone through the entire reservations.csv file
      * if any of these days exceed the maximum rooms from hotels.csv it returns false
      * otherwise it returns true
-     * @param roomType
-     * @param checkin
-     * @param checkout
+     * @param roomType String, type of room to be checked
+     * @param checkin String, start date
+     * @param checkout String, end date
      * @return true if a room is available for reservation, else false
      */
     public static boolean checkVacancy(String roomType, String checkin, String checkout) {
