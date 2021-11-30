@@ -20,11 +20,11 @@ public class Reservation {
 
     /**
      * Constructor for reservations
-     * @param name
-     * @param type
-     * @param checkIn
-     * @param checkOut
-     * @param numberOfRooms
+     * @param name String, reservation name
+     * @param type String, reservation type
+     * @param checkIn String, start date
+     * @param checkOut String, end date
+     * @param numberOfRooms int, number or rooms
      */
     public Reservation(String name, String type, String checkIn, String checkOut, int numberOfRooms){
 
@@ -158,7 +158,7 @@ public class Reservation {
 
     /**
      * returns total cost for a reservation. Applies discount if reservation is an "Advanced purchased"
-     * @return
+     * @return total cost for reservation applies to advanced purchase with discount
      */
     public double getTotalCost(){
         double result = 0;
@@ -173,7 +173,7 @@ public class Reservation {
 
     /**
      * returns reservation name
-     * @return
+     * @return gets reservation name
      */
     public String getReservationName() {
         return reservationName;
@@ -181,7 +181,7 @@ public class Reservation {
 
     /**
      * gets reservation number
-     * @return
+     * @return gets reservation number
      */
 
     public int getReservationNum() {
@@ -190,7 +190,7 @@ public class Reservation {
 
     /**
      * gets check in date
-     * @return
+     * @return gets check in or start date
      */
     public String getCheckIn() {
         return checkIn;
@@ -198,7 +198,7 @@ public class Reservation {
 
     /**
      * gets check out date
-     * @return
+     * @return check out or end date
      */
     public String getCheckOut() {
         return checkOut;
@@ -206,8 +206,8 @@ public class Reservation {
 
     /**
      * gets room type
-     * @param i
-     * @return
+     * @param i int, number
+     * @return roomtype at i
      */
     public String getRoomType(int i) {
         return roomType[i];
@@ -215,7 +215,7 @@ public class Reservation {
 
     /**
      * gets number of rooms from reservation
-     * @return
+     * @return number of rooms
      */
     public int getNumberOfRooms() {
         return numberOfRooms;
@@ -223,7 +223,7 @@ public class Reservation {
 
     /**
      * gets number of people list
-     * @return
+     * @return number of people per specific room
      */
     public int[] getNumOfPeople() {
         return numOfPeople;
@@ -231,7 +231,7 @@ public class Reservation {
 
     /**
      * gets reservation type list but as a string
-     * @return
+     * @return reservation type
      */
     public String getReservationType() {
         return reservationType;
@@ -239,7 +239,7 @@ public class Reservation {
 
     /**
      * sets avaibility variable
-     * @param available
+     * @param available boolean, availability
      */
     public void setAvailablility(boolean available) {
         this.available = available;
@@ -247,7 +247,7 @@ public class Reservation {
 
     /**
      * gets availability variable
-     * @return
+     * @return true or false
      */
     public boolean getAvaiablility() {
         return available;
