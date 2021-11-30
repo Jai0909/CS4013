@@ -8,11 +8,11 @@ public class RequestHandler {
 
     /**
      * Method makes new reservation to be added to csv
-     * @param name
-     * @param type
-     * @param checkIn
-     * @param checkOut
-     * @param numberOfRooms
+     * @param name String, reservation name
+     * @param type String, reservation type
+     * @param checkIn String, start date
+     * @param checkOut String, end date
+     * @param numberOfRooms int, number of rooms
      */
     public static void newReservation(String name, String type, String checkIn, String checkOut, int numberOfRooms){
         Reservation reservation = new Reservation(name, type, checkIn, checkOut, numberOfRooms);
