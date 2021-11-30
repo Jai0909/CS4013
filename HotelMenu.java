@@ -109,7 +109,8 @@ public class HotelMenu {
             	String end_date;
             	while(true){
 			System.out.println("\nStart Date (format dd-mm-yyyy):\n");
-                         start_date = input.nextLine();
+                        start_date = input.nextLine();
+			start_date = input.nextLine();
                           System.out.println("\nEnd Date(format dd-mm-yyyy):\n");
                            end_date = input.nextLine();
             		    if(DateChecker.checkformat(start_date,end_date)){
