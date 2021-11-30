@@ -3,6 +3,7 @@ import java.util.Scanner;
 /**
  * @author Rohan Arya
  * @author Dennis Kolomiyets
+ * @author Jai
  * This class is the home menu for the user, from here you can use all the systems functionality
  */
 public class HotelMenu {
