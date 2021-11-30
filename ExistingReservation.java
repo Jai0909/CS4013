@@ -10,8 +10,8 @@ public class ExistingReservation {
 
     /**
      * Constructor creates reservations to be used by the checkVaccancy() method in the DataChecker class
-     * @param reservationDate
-     * @param reservedTotal
+     * @param reservationDate Date, date of reservation
+     * @param reservedTotal int, number or reserved rooms
      */
     public ExistingReservation(Date reservationDate, int reservedTotal) {
         this.reservationDate = reservationDate;
@@ -20,7 +20,7 @@ public class ExistingReservation {
 
     /**
      * gets reservation date
-     * @return
+     * @return reservation date
      */
     public Date getReservationDate() {
         return reservationDate;
@@ -28,7 +28,7 @@ public class ExistingReservation {
 
     /**
      * sets reservation date
-     * @param reservationDate
+     * @param reservationDate Date, reservation date
      */
     public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
@@ -36,7 +36,7 @@ public class ExistingReservation {
 
     /**
      * returns total rooms reserved for a particular date
-     * @return
+     * @return total reserved rooms
      */
     public int getReservedTotal() {
         return reservedTotal;
@@ -44,7 +44,7 @@ public class ExistingReservation {
 
     /**
      * sets total rooms reserved for a particular date
-     * @param reservedTotal
+     * @param reservedTotal int, total reserved rooms
      */
     public void setReservedTotal(int reservedTotal) {
         this.reservedTotal = reservedTotal;
