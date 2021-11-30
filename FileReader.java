@@ -20,7 +20,7 @@ public class FileReader {
             double result = 0;
             java.io.File file = new java.io.File("CsvFiles/hotels.csv");
             Scanner scanner = new Scanner(file);
-
+            // reads through hotels.csv and calculates the price of a room for a number of days
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 String[] tokens = line.split(",");
@@ -29,6 +29,7 @@ public class FileReader {
                     int numDays = DateChecker.findDifference(startDate, endDate);
                     int day = DateChecker.getDayNumber(startDate);
                     for(int i = 0; i < numDays; i++){
+                        //offsets the week back to start on sunday
                         if(day == 11){
                             day = 4;
                         }
@@ -49,10 +50,11 @@ public class FileReader {
     /**
      * This static method returns the number of people to be books for a particular room
      * @param roomType
-     * @return
+     * @return number of people in a room
      */
     public static int getMaxOccupancy(String roomType){
         try {
+            //reads file
             String line = "";
             java.io.File file = new java.io.File("CsvFiles/hotels.csv");
             Scanner scanner = new Scanner(System.in);
@@ -64,6 +66,7 @@ public class FileReader {
                 String[] tokens = line.split(",");
                 String roomTypeName = tokens[0];
                 if(roomTypeName.equals(roomType)){
+                    //prompts user for the number of people to occupy a room has to be between the max number and 0
                     while(num > Integer.parseInt(tokens[3]) || num <= 0){
                         System.out.println("Input number of Occupants in " + roomType + ". Max Occupancy: " + tokens[3] + "\n");
                         num = Integer.parseInt(scanner.nextLine());
@@ -81,9 +84,10 @@ public class FileReader {
 
     /**
      * This static method returns the contents of reservation in the form of a String
-     * @return
+     * @return entire contents of reservation.csv as String
      */
     public static String readReservations() {
+        //reads file
         String line = "";
         String result = "";
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
@@ -99,6 +103,7 @@ public class FileReader {
                 String checkOut = tokens[4];
                 String numOfRooms = tokens[5];
                 String rooms = tokens[6];
+                //stores all above values in a string
                 result = result + "Reservation Number: " + resNum + "\nReservation Name: " + resName + "\nType: " + resType + "\nDuration of stay: " + checkIn + " -> " + checkOut + "\nNumber of Rooms: " + numOfRooms + " Rooms: " + rooms + "\n\n%";
 
             }
@@ -110,15 +115,17 @@ public class FileReader {
 
     /**
      * This static method returns the amount of rows in reservations.csv as an Integer
-     * @return
+     * @return reservation list size
      */
     public static int getListSize(){
+        //reads file
         int result = 0;
         String line = "";
 
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
         try {
             Scanner scanner = new Scanner(file);
+            // increments result by 1
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 result++;
@@ -132,9 +139,10 @@ public class FileReader {
     /**
      * This static method is responsible for checking in
      * where the result is a message stating whether your check-in was successful or not
-     * @return
+     * @return String that states if check in was successful
      */
     public static String checkIn(){
+        //reads file
         String line = "";
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
         try {
@@ -155,9 +163,10 @@ public class FileReader {
 
     /**
      * This static method returns the reservation number of the last item in reservation.csv
-     * @return
+     * @return reservation number of last item in list
      */
     public static int checkLastNumber(){
+        //reads file
         String line = "";
         int resNumber = 0;
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
@@ -178,9 +187,10 @@ public class FileReader {
     /**
      * This method returns the maximum number of rooms associated with each room type found in hotels.csv
      * @param roomType
-     * @return
+     * @return max number of rooms available for a room type
      */
     public static int roomTypeNumberOfRooms(String roomType){
+        //reads file
         String line = "";
         java.io.File file = new java.io.File("CsvFiles/hotels.csv");
         try {
@@ -202,9 +212,10 @@ public class FileReader {
     /**
      * This method gets the check-in date for a particular reservation based on the reservation number given from reservations.csv
      * @param number
-     * @return
+     * @return check in date
      */
     public static String getCheckIn(int number){
+        //reads file
         String line = "";
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
         try {
@@ -213,6 +224,7 @@ public class FileReader {
                 line = scanner.nextLine();
                 String[] tokens = line.split(",");
                 if(Integer.parseInt(tokens[0]) == number){
+                    //returns check in date
                     return tokens[3];
                 }
             }
@@ -225,9 +237,10 @@ public class FileReader {
     /**
      * This method gets the reservation type for a particular reservation based on the reservation number given from reservations.csv
      * @param number
-     * @return
+     * @return reservation type
      */
     public static String getType(int number){
+        //reads file
         String line = "";
         java.io.File file = new java.io.File("CsvFiles/reservations.csv");
         try {
@@ -236,6 +249,7 @@ public class FileReader {
                 line = scanner.nextLine();
                 String[] tokens = line.split(",");
                 if(Integer.parseInt(tokens[0]) == number){
+                    //returns reservation type
                     return tokens[2];
                 }
             }
