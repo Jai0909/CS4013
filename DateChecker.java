@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 /**
  * @author Dennis Kolomiyets
+ * @author Jai
  * This class is responsible for all methods that use/check-for dates
  */
 public class DateChecker {
