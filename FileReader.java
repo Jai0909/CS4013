@@ -9,10 +9,10 @@ public class FileReader {
 
     /**
      * This static method calculates the total price for booking a particular room from a start date til an end date
-     * @param startDate
-     * @param endDate
-     * @param roomType
-     * @return
+     * @param startDate String, start date
+     * @param endDate String, end date
+     * @param roomType String, room type to get the prices of
+     * @return amount it costs to stay in a particular room from a start date to an end date
      */
     public static double getPrice(String startDate, String endDate, String roomType) {
         try {
@@ -49,7 +49,7 @@ public class FileReader {
 
     /**
      * This static method returns the number of people to be books for a particular room
-     * @param roomType
+     * @param roomType String, room type
      * @return number of people in a room
      */
     public static int getMaxOccupancy(String roomType){
@@ -186,7 +186,7 @@ public class FileReader {
 
     /**
      * This method returns the maximum number of rooms associated with each room type found in hotels.csv
-     * @param roomType
+     * @param roomType String, room type
      * @return max number of rooms available for a room type
      */
     public static int roomTypeNumberOfRooms(String roomType){
@@ -211,7 +211,7 @@ public class FileReader {
 
     /**
      * This method gets the check-in date for a particular reservation based on the reservation number given from reservations.csv
-     * @param number
+     * @param number int, reservation number
      * @return check in date
      */
     public static String getCheckIn(int number){
@@ -236,7 +236,7 @@ public class FileReader {
 
     /**
      * This method gets the reservation type for a particular reservation based on the reservation number given from reservations.csv
-     * @param number
+     * @param number int, reservation number
      * @return reservation type
      */
     public static String getType(int number){
