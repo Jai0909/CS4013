@@ -25,6 +25,7 @@ public class RequestHandler {
             rooms = rooms + "/" + reservation.getRoomType(i);
         }
         try {
+            //writes to 2 files 
             if(reservation.getAvaiablility()){
                 FileWriter newWrite = new FileWriter(reservation.getReservationNum(), name,  type, checkIn, checkOut, numberOfRooms, rooms);
                 FileWriter writePayments = new FileWriter(reservation.getReservationNum(),checkIn, checkOut, rooms, reservation.getTotalCost());
@@ -38,8 +39,10 @@ public class RequestHandler {
      * method displays reservations
      */
     public static void displayReservations(){
+        //gets reservation as String
         String reservationList = FileReader.readReservations();
         String[] tokens = reservationList.split("%");
+        //prints each reservation one at a time
         for(int i = 0; i < FileReader.getListSize(); i++){
             System.out.println(tokens[i]);
         }
