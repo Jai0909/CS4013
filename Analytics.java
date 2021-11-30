@@ -12,9 +12,9 @@ public class Analytics {
     /**
      * This method returns the total income in a specified hotel for a specified time frame.
      *
-     * @param checkFromDate
-     * @param checkToDate
-     * @param hotel
+     * @param checkFromDate String, first date you want to check from.
+     * @param checkToDate String, date you want to check up until.
+     * @param hotel String, the room type. used to find which hotel you want to check.
      * @return double The total income for the hotel and time period specified.
      */
     public static double income(String checkFromDate, String checkToDate, String hotel) {
@@ -47,9 +47,9 @@ public class Analytics {
     /**
      * This method returns the total number of occupants in a specified hotel for a specified time frame.
      *
-     * @param checkFromDate
-     * @param checkToDate
-     * @param hotel
+     * @param checkFromDate String, first date you want to check from.
+     * @param checkToDate String, date you want to check up until.
+     * @param hotel String, the room type. used to find which hotel you want to check.
      * @return int the number of total occupants.
      */
     public static int occupancy(String checkFromDate, String checkToDate, String hotel) {
@@ -70,8 +70,9 @@ public class Analytics {
     /**
      * This method returns an ArrayList of payments that are contained within the time period of the input parameters from and to date.
      *
-     * @param checkFromDate
-     * @param checkToDate
+     * @param checkFromDate String, first date you want to check from.
+     * @param checkToDate String, date you want to check up until.
+     * @param hotel String, the room type. used to find which hotel you want to check.
      * @return ArrayList of TempPay objects.
      */
     private static ArrayList<TempPay> dateChecker(String checkFromDate, String checkToDate, String hotel) {

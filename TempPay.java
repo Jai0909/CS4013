@@ -12,11 +12,11 @@ public class TempPay {
     /**
      * Constructor for TempPay object.
      *
-     * @param resNum
-     * @param checkInDate
-     * @param checkOutDate
-     * @param roomTypeForHotel
-     * @param totalCost
+     * @param resNum int, reservation number.
+     * @param checkInDate String, date of check in.
+     * @param checkOutDate String, date of check out.
+     * @param roomTypeForHotel String, type of room to be booked e.g. deluxe standard.
+     * @param totalCost double, the total cost of the reservation.
      */
     public TempPay(int resNum, String checkInDate, String checkOutDate, String roomTypeForHotel, double totalCost) {
         this.resNum = resNum;

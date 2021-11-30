@@ -13,20 +13,20 @@ public class TempRes {
     String reservationType;
     String checkIn;
     String checkOut;
-    String numberOfRooms;
+    int numberOfRooms;
     String roomType;
 
     /**
      * Constructor for TempRes object.
-     * @param reservationNum
-     * @param reservationName
-     * @param reservationType
-     * @param checkIn
-     * @param checkOut
-     * @param numberOfRooms
-     * @param roomType
+     * @param reservationNum int, reservation number.
+     * @param reservationName String, name of reservation.
+     * @param reservationType String, type of reservation e.g. AP or S.
+     * @param checkIn String, date of check in.
+     * @param checkOut String, date of check out.
+     * @param numberOfRooms int, number of rooms reserved.
+     * @param roomType String, type of room booked e.g. deluxe standard.
      */
-    public TempRes(int reservationNum, String reservationName, String reservationType, String checkIn, String checkOut, String numberOfRooms, String roomType) {
+    public TempRes(int reservationNum, String reservationName, String reservationType, String checkIn, String checkOut, int numberOfRooms, String roomType) {
         this.reservationNum = reservationNum;
         this.reservationName = reservationName;
         this.reservationType = reservationType;
@@ -63,12 +63,13 @@ public class TempRes {
             while((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 int resNum = Integer.parseInt(fields[0]);
+                int numOfRooms = Integer.parseInt(fields[5]);
 
                 StringTokenizer st = new StringTokenizer(fields[6], "/");
                 while(st.hasMoreTokens()) {
                     String reservationType = st.nextToken();
                     List<TempRes> reservations = result.computeIfAbsent(reservationType, k -> new ArrayList<>());
-                    reservations.add(new TempRes(resNum, fields[1], fields[2], fields[3], fields[4], fields[5], reservationType));
+                    reservations.add(new TempRes(resNum, fields[1], fields[2], fields[3], fields[4], numOfRooms, reservationType));
                 }
             }
         } catch (Exception e) {

@@ -31,13 +31,13 @@ public class FileWriter {
     /**
      * This constructor makes a FileWriter object that writes data to reservations.csv.
      *
-     * @param reservationNum
-     * @param reservationName
-     * @param reservationType
-     * @param checkIn
-     * @param checkOut
-     * @param numberOfRooms
-     * @param roomType
+     * @param reservationNum int, reservation number.
+     * @param reservationName String, name of reservation.
+     * @param reservationType String, type of reservation S or AP.
+     * @param checkIn String, date of check in.
+     * @param checkOut String, date of check out.
+     * @param numberOfRooms int, the number of rooms ou wish to reserve.
+     * @param roomType String, the name of the room type you wish to book e.g. deluxe standard
      */
     public FileWriter(int reservationNum, String reservationName, String reservationType, String checkIn, String checkOut, int numberOfRooms,
                       String roomType) {
@@ -75,11 +75,11 @@ public class FileWriter {
     /**
      * This constructor makes a FileWriter object that writes data to payment.csv.
      *
-     * @param resNum
-     * @param checkInDate
-     * @param checkOutDate
-     * @param roomTypeForHotel
-     * @param totalCost
+     * @param resNum int, the reservation number.
+     * @param checkInDate String, date of check in.
+     * @param checkOutDate String, date of check out.
+     * @param roomTypeForHotel String, name of room you will be staying in e.g. deluxe standard.
+     * @param totalCost double, the total cost of your reservation.
      */
     public FileWriter(int resNum, String checkInDate, String checkOutDate, String roomTypeForHotel, double totalCost) {
         this.resNum = resNum;
@@ -114,7 +114,7 @@ public class FileWriter {
     /**
      * this method removes a specified reservation from the reservations.csv file.
      *
-     * @param number
+     * @param number int, the id number of the reservation you wish to remove.
      */
     public static void removeReservation(int number) {
         File file = new File("CsvFiles/reservations.csv");
@@ -123,7 +123,7 @@ public class FileWriter {
         String reservationType;
         String checkIn;
         String checkOut;
-        String numberOfRooms;
+        int numberOfRooms;
         String roomType;
         String line;
         ArrayList<TempRes> tempStore = new ArrayList<>();
@@ -134,13 +134,12 @@ public class FileWriter {
             while (input.hasNextLine()) {
                 line = input.nextLine();
                 String[] tokens = line.split(",");
-                String reservationString = tokens[0];
-                reservationInt = Integer.parseInt(reservationString);
+                reservationInt = Integer.parseInt(tokens[0]);
                 reservationName = tokens[1];
                 reservationType = tokens[2];
                 checkIn = tokens[3];
                 checkOut = tokens[4];
-                numberOfRooms = tokens[5];
+                numberOfRooms = Integer.parseInt(tokens[5]);
                 roomType = tokens[6];
 
                 TempRes store = new TempRes(reservationInt, reservationName, reservationType, checkIn, checkOut, numberOfRooms, roomType);
@@ -182,7 +181,7 @@ public class FileWriter {
     /**
      * this method removes a specified payment from the payment.csv file.
      *
-     * @param number
+     * @param number int, the id number of the payment you wish to remove.
      */
     public static void removePayment(int number) {
         File file = new File("CsvFiles/payment.csv");
