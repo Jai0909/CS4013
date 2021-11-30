@@ -96,11 +96,25 @@ public class HotelMenu {
                 } else if(number == 3){
                     hotel = "classic";
                 }
-                System.out.println("\nEnter Start Date (dd-mm-yyyy)\n");
-                String start_date = input.nextLine();
-                start_date = input.nextLine();
-                System.out.println("\nEnter End Date (dd-mm-yyyy)\n");
-                String end_date = input.nextLine();
+                String start_date;
+            		String end_date;
+            		while(true){
+            			System.out.println("\nStart Date (format dd-mm-yyyy):\n");
+                            	start_date = input.nextLine();
+                            	System.out.println("\nEnd Date(format dd-mm-yyyy):\n");
+                            	end_date = input.nextLine();
+            			if(DateChecker.checkformat(start_date,end_date)){
+                    if(DateChecker.findDifference(start_date,end_date)>0){
+                      break;
+                    }
+                    else{
+              				System.out.println("Invalid Input\n");
+            			}
+                }
+            			else{
+            				System.out.println("Invalid Input\n");
+            			}
+            		}
                 if(analyticChoice == 1){
                     System.out.println("Total income from (" + start_date + ") to (" + end_date + ") is :" + Analytics.income(start_date,end_date,hotel));
                 }
