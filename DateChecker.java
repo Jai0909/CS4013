@@ -20,13 +20,14 @@ public class DateChecker {
         try {
             Date d1 = dateFormat.parse(start_date);
             Date d2 = dateFormat.parse(end_date);
-
+		//gets difference in days by subtracting one date by the other
             long differenceInDays = TimeUnit.MILLISECONDS.toDays(d2.getTime() - d1.getTime());
 
             if(differenceInDays == 0){
                 System.out.println("Same day");
                 return 0;
             } else {
+		    //adds extra days to include last day of stay
                 return (int)differenceInDays+1;
             }
 
@@ -37,8 +38,9 @@ public class DateChecker {
     }
     
     /**
+     *This static method checks if a string is in date format
      *@param date
-     *@return 
+     *@return true if date fits our simple date
      */
     public static boolean checkformat(String date){
         try{
@@ -63,6 +65,7 @@ public class DateChecker {
         try {
             Date realDate = dateFormat.parse(date);
             cal.setTime(realDate);
+		// gets day of week where 1 is sunday and 7 is saturday. 3 is added on due to the offset in hotels.csv
             return cal.get(Calendar.DAY_OF_WEEK)+3;
         } catch (ParseException e){
             e.printStackTrace();
@@ -75,8 +78,10 @@ public class DateChecker {
      * @return todays date
      */
     public static String getLocalDate() {
+	    // gets todays date
         String date = LocalDate.now().toString();
         String[] tokens = date.split("-");
+	    //converts to our format (dd-mm-yyyy)
         return tokens[2] + "-" + tokens[1] + "-" + tokens[0];
     }
 
@@ -94,27 +99,34 @@ public class DateChecker {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar calender = Calendar.getInstance();
 
-
+	//creates a HashMap and loads all of our reservation details into memory
         Map<String, List<TempRes>> reservations = TempRes.loadCSV("CsvFiles/reservations.csv");
         if (reservations == null) {
             return true;
         }
 
+	//quickly checks if the reservation has our desired roomtype. if it doesnt that means we automatically can make a new reservation so it returns true
         List<TempRes> r = reservations.get(roomType);
         if (r == null) {
             return true;
         }
 
         try {
+	    // calculates the number of individual days we need to check
             int daysRequired = findDifference(checkin, checkout);
+	    // creates a list to store all existing reservations
             ExistingReservation[] occupiedRooms = new ExistingReservation[daysRequired];
+	    // sets a variable for our check-in date
             Date in = dateFormat.parse(checkin);
             calender.setTime(in);
+	    // creates an item in the list for each day that we are trying to reserve. it will hold a value on how many of our type of room has been booked on a particular day
             for(int i = 0; i < daysRequired; i++){
                 occupiedRooms[i] = new ExistingReservation(calender.getTime(), 0);
                 calender.add(Calendar.DATE, 1);
             }
 
+	    // goes through each day and every line from reservations.csv that has been loaded into memory compares if a line containing our desired roomType falls on the day we're checking and if its between our checkin and check out days.
+	    // if it is then that days number of reserved rooms variable is incremented by 1. Otherwise it moves onto the next line.
             for (ExistingReservation er : occupiedRooms) {
                 for (TempRes res : r) {
                     Date checkIn = dateFormat.parse(res.checkIn);
@@ -124,7 +136,8 @@ public class DateChecker {
                     }
                 }
             }
-
+		
+	    // goes through each day for which you want to reserve and checks whether its number of reserved rooms are greater than or equals to number of available rooms for that type. If any of them exceed the max the method returns false.
             for(ExistingReservation er : occupiedRooms) {
                 if(er.getReservedTotal() >= FileReader.roomTypeNumberOfRooms(roomType)){
                     return false;
